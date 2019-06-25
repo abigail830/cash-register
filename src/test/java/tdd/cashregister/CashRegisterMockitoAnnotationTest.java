@@ -1,8 +1,11 @@
 package tdd.cashregister;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.*;
@@ -16,7 +19,11 @@ class CashRegisterMockitoAnnotationTest {
     @Mock
     Purchase stubPurchase;
 
-    @Test
+    @Spy
+    @InjectMocks
+    CashRegister spyCashRegister;
+
+    @Disabled
     void test_cash_register_should_able_to_trigger_printer_print() {
         //given
         Item[] items = {new Item("item1", 10), new Item("item2", 20)};
@@ -31,7 +38,7 @@ class CashRegisterMockitoAnnotationTest {
     }
 
 
-    @Test
+    @Disabled
     void test_cash_register_should_able_to_trigger_printer_print_with_stub_purchase() {
         final String DESCRIPTION = "This is description";
         //given
@@ -43,6 +50,19 @@ class CashRegisterMockitoAnnotationTest {
 
         //then
         verify(mockPrinter, times(1)).print(DESCRIPTION);
+    }
+
+    @Test
+    void test_cash_register_should_able_to_print_purchase_and_discount() {
+        final String DESCRIPTION = "This is description";
+        //given
+        doReturn(DESCRIPTION).when(stubPurchase).description();
+
+        doReturn(10).when(spyCashRegister).calculateDiscount(stubPurchase);
+        spyCashRegister.print(stubPurchase);
+
+        //then
+        verify(mockPrinter, times(1)).print(DESCRIPTION + "Discount\t10");
     }
 
 }

@@ -9,6 +9,10 @@ public class CashRegister {
     }
 
     public void print(Purchase purchase) {
-        printer.print(purchase.description());
+        printer.print(purchase.description() + "Discount\t" + calculateDiscount(purchase));
+    }
+
+    int calculateDiscount(Purchase purchase) {
+        throw new UnsupportedOperationException("Not Implemented");
     }
 }
