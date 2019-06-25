@@ -22,4 +22,22 @@ class CashRegisterMockitoTest {
         verify(printer, times(1)).print(purchase.description());
     }
 
+
+    @Test
+    void test_cash_register_should_able_to_trigger_printer_print_with_stub_purchase() {
+        final String DESCRIPTION = "This is description";
+        //given
+        Purchase purchase = mock(Purchase.class);
+        doReturn(DESCRIPTION).when(purchase).description();
+
+        Printer printer = mock(Printer.class);
+
+        //when
+        final CashRegister cashRegister = new CashRegister(printer);
+        cashRegister.print(purchase);
+
+        //then
+        verify(printer, times(1)).print(DESCRIPTION);
+    }
+
 }
