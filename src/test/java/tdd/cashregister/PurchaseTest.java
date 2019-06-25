@@ -2,7 +2,7 @@ package tdd.cashregister;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PurchaseTest {
 
@@ -19,7 +19,7 @@ class PurchaseTest {
 
         //Then
         String expected = "Apple\t10.0\nBanana\t20.0\n";
-        assertThat(des).isEqualTo(expected);
+        assertEquals(expected, des);
 
     }
 
